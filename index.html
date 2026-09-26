@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pritesh Das | Data & Business Analyst</title>
+<style>
+  :root{
+    --bg:#0A1930; --surface:#102544; --border:#1E3A5F;
+    --text:#FFFFFF; --muted:#A9B4C4; --accent:#6FA8DC;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth; scroll-padding-top:70px;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    line-height:1.6; padding-top:env(safe-area-inset-top,0px);
+  }
+  .wrap{max-width:1000px; margin:0 auto; padding:0 24px;}
+  header{
+    position:sticky; top:0; z-index:20; background:rgba(10,25,48,0.92);
+    backdrop-filter:blur(8px); border-bottom:1px solid var(--border);
+    padding-top:env(safe-area-inset-top,0px);
+  }
+  nav{display:flex; align-items:center; justify-content:space-between; padding:16px 0;}
+  .brand{font-weight:700; font-size:1.05rem; text-decoration:none; color:var(--text);}
+  .navlinks{display:flex; gap:28px; list-style:none;}
+  .navlinks a{color:var(--muted); text-decoration:none; font-size:0.95rem; cursor:pointer;}
+  .navlinks a:hover, .navlinks a:focus-visible{color:var(--text);}
+  .navlinks a.current{color:var(--text); border-bottom:2px solid var(--accent); padding-bottom:2px;}
+  main{min-height:calc(100vh - 65px);}
+  section.page{padding:64px 0; display:none;}
+  section.page.active{display:block; animation:fadein .25s ease;}
+  @keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+  h1{font-size:2.4rem; font-weight:700; letter-spacing:-0.01em;}
+  h2{font-size:0.95rem; color:var(--accent); font-weight:600; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.05em;}
+  h3{font-size:1.7rem; margin-bottom:12px;}
+  p{color:var(--muted); max-width:70ch;}
+  .hero{display:flex; align-items:center; gap:40px; flex-wrap:wrap;}
+  .hero .copy{flex:1 1 400px;}
+  .avatar{
+    width:140px; height:140px; border-radius:50%; background:var(--surface);
+    border:2px solid var(--border); display:flex; align-items:center; justify-content:center;
+    font-size:2.2rem; font-weight:700; color:var(--accent); flex-shrink:0;
+  }
+  .btnrow{display:flex; gap:14px; margin-top:24px; flex-wrap:wrap;}
+  .btn{padding:10px 20px; border-radius:6px; text-decoration:none; font-size:0.9rem; font-weight:600; display:inline-block; cursor:pointer;}
+  .btn-primary{background:var(--accent); color:#071B33;}
+  .btn-primary:hover{opacity:0.9;}
+  .btn-outline{border:1px solid var(--border); color:var(--text);}
+  .btn-outline:hover{background:var(--surface); border-color:var(--accent);}
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:22px; margin-bottom:20px;}
+  .card .role{font-weight:600; font-size:1.1rem; color:var(--text);}
+  .card .meta{color:var(--accent); font-size:0.88rem; margin:4px 0 12px;}
+  .tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
+  .tag{font-size:0.75rem; color:var(--muted); border:1px solid var(--border); border-radius:999px; padding:3px 10px; background:rgba(30,58,95,0.3);}
+  .skillgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin-top:20px;}
+  .skillgroup .label{font-size:0.85rem; color:var(--accent); margin-bottom:6px; font-weight:600;}
+  .skillgroup div:last-child{color:var(--muted); font-size:0.95rem;}
+  .projgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px; margin-top:24px;}
+  ul.bullets{list-style:none; margin-top:12px; color:var(--muted);}
+  ul.bullets li{padding-left:18px; position:relative; margin-bottom:8px; font-size:0.92rem; line-height:1.5;}
+  ul.bullets li::before{content:"▹"; position:absolute; left:0; color:var(--accent);}
+  .contactgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px; margin-top:24px;}
+  .contactgrid .label{font-size:0.85rem; color:var(--accent); font-weight:600; margin-bottom:4px;}
+  .contactgrid a{color:var(--text); text-decoration:none;}
+  .contactgrid a:hover{color:var(--accent);}
+  footer{padding:32px 0; text-align:center; border-top:1px solid var(--border); margin-top:40px;}
+  footer p{margin:0 auto; color:var(--muted); font-size:0.85rem;}
+  a.editnote{color:var(--accent); text-decoration:none; font-size:0.9rem; font-weight:600;}
+  a.editnote:hover{text-decoration:underline;}
+  @media (max-width:640px){ h1{font-size:1.9rem;} .navlinks{gap:16px; font-size:0.85rem;} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="#" data-page="home">Pritesh Das</a>
+      <ul class="navlinks">
+        <li><a href="#" data-page="home">Home</a></li>
+        <li><a href="#" data-page="projects">Projects</a></li>
+        <li><a href="#" data-page="experience">Experience</a></li>
+        <li><a href="#" data-page="resume">Resume</a></li>
+        <li><a href="#" data-page="documents">Credentials</a></li>
+        <li><a href="#" data-page="contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- HOME / ABOUT -->
+<section id="home" class="page active">
+  <div class="wrap hero">
+    <div class="copy">
+      <h1>Hello, I'm Pritesh</h1>
+      <h2 style="margin-top:8px;">Data &amp; Business Analyst</h2>
+      <p>Results-driven analyst experienced in developing scalable ETL pipelines, exploratory statistical models, and executive dashboards. Skilled in turning raw operational, retail, and epidemiological datasets into measurable business impact.</p>
+      <div class="btnrow">
+        <a class="btn btn-primary" href="#" data-page="projects">View My Work</a>
+        <a class="btn btn-outline" href="#" data-page="contact">Get In Touch</a>
+      </div>
+    </div>
+    <div class="avatar">PD</div>
+  </div>
+
+  <div class="wrap" style="margin-top:56px;">
+    <h2>About Me</h2>
+    <h3>My Journey</h3>
+    <p>With an academic foundation in Computer Engineering, I specialize in analyzing large datasets and creating clear business intelligence solutions. My experience ranges from engineering statistical features for population health analytics to building production-grade BI dashboards tracking multi-million-dollar sales and operational metrics.</p>
+    <div class="skillgrid" style="margin-top:24px;">
+      <div><div class="skillgroup"><div class="label">Location</div><div>Arlington, TX</div></div></div>
+      <div><div class="skillgroup"><div class="label">Core Specialization</div><div>BI, ETL &amp; Statistical EDA</div></div></div>
+      <div><div class="skillgroup"><div class="label">Primary Tools</div><div>SQL, Power BI, Python, Tableau</div></div></div>
+      <div><div class="skillgroup"><div class="label">Focus</div><div>Data-Driven Decision Making</div></div></div>
+    </div>
+  </div>
+
+  <div class="wrap" style="margin-top:56px;">
+    <h2>Technical Matrix</h2>
+    <h3>Skills &amp; Technologies</h3>
+    <div class="skillgrid">
+      <div class="skillgroup">
+        <div class="label">Languages &amp; Querying</div>
+        <div>Python (Pandas, NumPy), SQL (T-SQL)</div>
+      </div>
+      <div class="skillgroup">
+        <div class="label">BI &amp; Visualization</div>
+        <div>Power BI, Tableau, Power Query, Matplotlib, Seaborn, Plotly</div>
+      </div>
+      <div class="skillgroup">
+        <div class="label">Engineering &amp; Analytics</div>
+        <div>ETL Pipelines, Data Modeling, EDA, Statistical Reporting, DAX</div>
+      </div>
+      <div class="skillgroup">
+        <div class="label">Business &amp; Productivity</div>
+        <div>Microsoft Excel (Advanced), PowerPoint, Word, Cloud Concepts</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="page">
+  <div class="wrap">
+    <h2>Work &amp; Case Studies</h2>
+    <h3>Featured Projects</h3>
+    <p>A selection of end-to-end data analytics and business intelligence projects following a structured problem-solving framework.</p>
+    
+    <div class="projgrid">
+      <div class="card">
+        <div class="role">Cyclistic Bike Share Analysis</div>
+        <div class="meta">SQL (T-SQL) · Tableau · ETL Pipeline</div>
+        <ul class="bullets">
+          <li>Ingested and filtered 5.72M raw records into a clean 4.22M-row analytical dataset by eliminating null records and operational outliers.</li>
+          <li>Designed 3 interactive Tableau dashboards uncovering a 1.57x trip-duration intensity gap and weekend surge patterns.</li>
+          <li>Formulated 5 data-backed marketing initiatives targeting casual-to-annual membership conversions.</li>
+        </ul>
+        <div class="tags"><span class="tag">SQL</span><span class="tag">Tableau</span><span class="tag">Data Cleaning</span><span class="tag">ETL</span></div>
+        <div class="btnrow">
+          <a class="btn btn-outline" href="https://github.com/Pritesh934" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="role">Tailwind Traders Retail BI Analysis</div>
+        <div class="meta">Power BI · Power Query · DAX · Data Modeling</div>
+        <ul class="bullets">
+          <li>Optimized an end-to-end retail ETL pipeline utilizing a 35% cost allocation margin to process and clean transactional datasets.</li>
+          <li>Modeled a 62.30% profit margin and $222.50 median sales threshold, isolating a 190.93% transaction surge in the UAE ($680.79).</li>
+          <li>Published desktop and mobile dashboards to Power BI Service configured with automated revenue threshold alerts.</li>
+        </ul>
+        <div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Power Query</span><span class="tag">Retail Analytics</span></div>
+        <div class="btnrow">
+          <a class="btn btn-outline" href="https://github.com/Pritesh934" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="role">Bellabeat Smart Device Usage Study</div>
+        <div class="meta">SQL (T-SQL) · Tableau · Feature Engineering</div>
+        <ul class="bullets">
+          <li>Engineered a custom T-SQL pipeline to clean and aggregate minute-level tracking data across a 31-day activity window.</li>
+          <li>Designed a dual-dashboard suite isolating a 325% active-to-sedentary gap and a Sunday activity drop (820 vs. 1,207 steps).</li>
+          <li>Delivered a strategic product roadmap utilizing targeted haptic notifications to re-engage inactive users.</li>
+        </ul>
+        <div class="tags"><span class="tag">T-SQL</span><span class="tag">Tableau</span><span class="tag">Product Analytics</span><span class="tag">Segmentation</span></div>
+        <div class="btnrow">
+          <a class="btn btn-outline" href="https://github.com/Pritesh934" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="role">Exploratory Analysis on Dallas Weather</div>
+        <div class="meta">Python · Pandas · NumPy · Seaborn · Plotly</div>
+        <ul class="bullets">
+          <li>Conducted extensive exploratory data analysis across multi-year meteorological datasets using Pandas and NumPy.</li>
+          <li>Engineered 10+ interactive visualizations revealing correlations between extreme temperature swings and seasonal precipitation.</li>
+        </ul>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Plotly</span><span class="tag">EDA</span></div>
+        <div class="btnrow">
+          <a class="btn btn-outline" href="https://github.com/Pritesh934" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="page">
+  <div class="wrap">
+    <h2>Career</h2>
+    <h3>Professional Experience</h3>
+    
+    <p style="margin-bottom:12px; font-weight:600; color:var(--text);">Analytics &amp; Operations</p>
+    
+    <div class="card">
+      <div class="role">Healthcare Analytics Extern</div>
+      <div class="meta">TruBridge (Facilitated by Extern) · Mobile, AL (Remote) · May 2026 – August 2026</div>
+      <ul class="bullets">
+        <li>Utilized Python to conduct EDA and statistical analysis on public health datasets, engineering features across demographic matrices and time-series variables.</li>
+        <li>Developed interactive reporting layers and dashboards in Power BI to communicate population-level health trends.</li>
+        <li>Authored comprehensive performance reports evaluating data scope constraints to deliver data-backed recommendations for cross-functional stakeholders.</li>
+      </ul>
+      <div class="tags"><span class="tag">Python</span><span class="tag">Power BI</span><span class="tag">Statistical EDA</span><span class="tag">Stakeholder Reporting</span></div>
+    </div>
+
+    <div class="card">
+      <div class="role">Associate</div>
+      <div class="meta">Compass Group · Arlington, TX · January 2026 – May 2026</div>
+      <ul class="bullets">
+        <li>Managed event logistics, protocol operational integrity, and administrative workflows in a Fortune Global 500 enterprise environment.</li>
+        <li>Maintained 100% operational readiness by tracking compliance and standardizing site-specific quality assurance procedures.</li>
+      </ul>
+      <div class="tags"><span class="tag">Operations</span><span class="tag">Compliance Tracking</span><span class="tag">Quality Assurance</span></div>
+    </div>
+
+    <p style="margin:28px 0 12px; font-weight:600; color:var(--text);">Business &amp; Market Intelligence</p>
+
+    <div class="card">
+      <div class="role">Business Analyst Intern</div>
+      <div class="meta">Orient IT Services · Dubai, UAE · May 2024 – August 2024</div>
+      <ul class="bullets">
+        <li>Collaborated on cloud and automation solutions, supporting a projected 12% reduction in client IT costs through Azure optimization and resource monitoring.</li>
+        <li>Created technical presentations and market evaluations highlighting client value propositions for AI integrations.</li>
+        <li>Prospected 150+ enterprise clients via Apollo.io and LinkedIn; conducted 20+ discovery sessions to boost lead generation by 20%.</li>
+      </ul>
+      <div class="tags"><span class="tag">Business Analysis</span><span class="tag">Azure Cost Optimization</span><span class="tag">Client Engagement</span></div>
+    </div>
+
+    <div class="card">
+      <div class="role">Market Research Analyst Intern</div>
+      <div class="meta">Bahwan CyberTek · Dubai, UAE · December 2022 – January 2023</div>
+      <ul class="bullets">
+        <li>Researched digital transformation trends in the MENA utilities sector (smart grids and SCADA systems), evaluating operational analytics platforms.</li>
+        <li>Synthesized industry insights into 6 comprehensive presentations and reports to assist sales and marketing strategies with actionable findings.</li>
+      </ul>
+      <div class="tags"><span class="tag">Market Research</span><span class="tag">MENA Utilities</span><span class="tag">Executive Reporting</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume" class="page">
+  <div class="wrap">
+    <h2>Resume</h2>
+    <h3>Qualifications &amp; Background</h3>
+    <p>A comprehensive summary of my education, technical proficiencies, professional roles, and analytical case studies.</p>
+    <div class="btnrow" style="margin-top:20px;">
+      <a class="btn btn-primary" href="mailto:pritesh.das.101@gmail.com?subject=Resume%20Request%20-%20Pritesh%20Das">Request Full Resume PDF</a>
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS & DOCUMENTS -->
+<section id="documents" class="page">
+  <div class="wrap">
+    <h2>Credentials</h2>
+    <h3>Certifications &amp; Recognition</h3>
+    
+    <div class="card">
+      <div class="role">Microsoft Certified: Power BI Data Analyst Associate</div>
+      <div class="meta">Microsoft</div>
+      <p>Demonstrated proficiency in data preparation, modeling, visualization, and deploying secure BI assets in Power BI Service.</p>
+    </div>
+
+    <div class="card">
+      <div class="role">Google Data Analytics Professional Certificate</div>
+      <div class="meta">Google</div>
+      <p>Hands-on training in SQL, spreadsheets, Tableau, and R covering end-to-end data cleaning, analysis, and visualization.</p>
+    </div>
+
+    <div class="card">
+      <div class="role">McKinsey Forward Learning Program</div>
+      <div class="meta">McKinsey &amp; Company</div>
+      <p>Practical training in structured business problem solving, top-down executive communication, and iterative design thinking.</p>
+    </div>
+
+    <div class="card">
+      <div class="role">Google AI Essentials &amp; Prompting Essentials</div>
+      <div class="meta">Google</div>
+      <p>Applied understanding of generative AI workflows, prompt design, and data task automation.</p>
+    </div>
+
+    <div class="card">
+      <div class="role">NPTEL Topper — Cloud Computing (Top 5%)</div>
+      <div class="meta">IIT Kharagpur · 2023</div>
+      <p>Ranked in the top 5% among 16,000+ candidates in an advanced nationwide examination on distributed systems and cloud architecture.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="page">
+  <div class="wrap">
+    <h2>Get In Touch</h2>
+    <h3>Let's Connect</h3>
+    <p>Whether you want to discuss a data analytics role, an upcoming project, or data visualization pipelines, feel free to reach out.</p>
+    
+    <div class="contactgrid">
+      <div>
+        <div class="label">Email</div>
+        <a href="mailto:pritesh.das.101@gmail.com">pritesh.das.101@gmail.com</a>
+      </div>
+      <div>
+        <div class="label">Phone</div>
+        <a href="tel:+16822721779">+1 (682) 272-1779</a>
+      </div>
+      <div>
+        <div class="label">Location</div>
+        <div style="color:var(--text);">Arlington, TX 76010</div>
+      </div>
+    </div>
+
+    <div class="btnrow" style="margin-top:32px;">
+      <a class="btn btn-outline" href="https://github.com/Pritesh934" target="_blank" rel="noopener">GitHub Profile</a>
+      <a class="btn btn-outline" href="https://www.linkedin.com/in/pritesh-das/" target="_blank" rel="noopener">LinkedIn Profile</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Pritesh Das. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  function showPage(id){
+    document.querySelectorAll('section.page').forEach(function(s){ s.classList.remove('active'); });
+    var target = document.getElementById(id);
+    if(target){ target.classList.add('active'); }
+    document.querySelectorAll('.navlinks a').forEach(function(a){
+      a.classList.toggle('current', a.dataset.page === id);
+    });
+    window.scrollTo(0,0);
+    history.replaceState(null, '', '#' + id);
+  }
+  document.querySelectorAll('[data-page]').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      showPage(el.dataset.page);
+    });
+  });
+  var startId = (location.hash || '#home').slice(1);
+  if(document.getElementById(startId)){ showPage(startId); }
+</script>
+
+</body>
+</html>
