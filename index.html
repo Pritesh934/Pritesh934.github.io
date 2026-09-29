@@ -127,10 +127,13 @@
   ul.bullets li { padding-left: 18px; position: relative; margin-bottom: 8px; font-size: 0.92rem; line-height: 1.5; }
   ul.bullets li::before { content: "▹"; position: absolute; left: 0; color: var(--accent); }
 
-  .contactgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-top: 24px; }
-  .contactgrid .label { font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+  /* Structured Contact Grid & Single-Line Phone Styling */
+  .contactgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; margin-top: 24px; }
+  .contactgrid .label { font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-bottom: 6px; }
   .contactgrid a { color: var(--text); text-decoration: none; }
   .contactgrid a:hover { color: var(--accent); }
+  .phone-line { white-space: nowrap; margin-bottom: 6px; font-size: 0.95rem; }
+  .phone-prefix { color: var(--muted); font-weight: 500; }
 
   footer { padding: 32px 0; text-align: center; border-top: 1px solid var(--border); margin-top: 40px; }
   footer p { margin: 0 auto; color: var(--muted); font-size: 0.85rem; }
@@ -139,6 +142,7 @@
     h1 { font-size: 1.9rem; }
     .navlinks { gap: 14px; font-size: 0.85rem; flex-wrap: wrap; }
     .hero { flex-direction: column-reverse; align-items: flex-start; gap: 24px; }
+    .phone-line { white-space: normal; }
   }
 </style>
 </head>
@@ -179,7 +183,7 @@
       </div>
     </div>
     <div class="avatar">
-      <img src="profile.jpeg" alt="Pritesh Das">
+      <img src="profile.jpeg" alt="Pritesh Das" onerror="this.onerror=null; this.src='profile.jpg';">
     </div>
   </div>
 
@@ -403,8 +407,12 @@
       </div>
       <div>
         <div class="label">Phone</div>
-        <span style="color:var(--muted); font-size:0.95rem;">UAE: </span><a href="tel:+971567648705">+971 56 764 8705 (WhatsApp, Botim, SMS)</a><br>
-        <span style="color:var(--muted); font-size:0.95rem;">US: </span><a href="tel:+16822721779" style="display:inline-block; margin-top:4px;">+1 (682) 272-1779 (WhatsApp, SMS, Direct)</a><br>
+        <div class="phone-line">
+          <span class="phone-prefix">UAE: </span><a href="tel:+971567648705">+971 56 764 8705 (WhatsApp &amp; Botim)</a>
+        </div>
+        <div class="phone-line">
+          <span class="phone-prefix">US: </span><a href="tel:+16822721779">+1 (682) 272-1779</a>
+        </div>
       </div>
       <div>
         <div class="label">Location</div>
@@ -468,7 +476,7 @@
       themeText.textContent = 'Dark';
       localStorage.setItem('theme', 'light');
     } else {
-      themeIcon.textContent = '☀️';
+      themeIcon.textContent = '☀️️';
       themeText.textContent = 'Light';
       localStorage.setItem('theme', 'dark');
     }
